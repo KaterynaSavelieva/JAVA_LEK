@@ -5,6 +5,21 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n=== Welcome to Kwik-E-Mart ===");
+        System.out.println("Enter prices one by one.");
+        System.out.println("Enter 0 to finish.");
+        printSeparator();
+
+        ArrayList<Double> prices = inputPrices(scanner);
+        printCheck(prices);
+
+        scanner.close();
+    }
+
+    //---------------------Entering prices-----------------
     private static ArrayList<Double> inputPrices (Scanner scanner) {
         ArrayList<Double> prices = new ArrayList<>();
         double price= 0;
@@ -28,49 +43,12 @@ public class Main {
             }catch (NumberFormatException e) {
                 System.out.println("Please enter a valid price (for example 2,50)!");
 
-                //continue;
             }
         }
         return prices;
     }
 
-    private static void printCheck(ArrayList<Double> prices) {
-
-        if (prices.size() == 0) {
-            System.out.println("There are no items in the list. Bye!");
-            return;
-        }
-
-        double sum = sumCalc(prices);
-        double min = minCalc(prices);
-        double max = maxCalc(prices);
-        double avg = avgCalc(prices);
-
-        double discountLevel = discountPercentageCal(prices);
-        double discount = discountCalc(prices);
-        double extraDiscount = discountExtraCalc(prices);
-        double finalTotal = totalCalc(prices);
-
-        System.out.println("\n------------------RECEIPT------------------");
-
-        System.out.println("Items:");
-        for (int i = 0; i < prices.size(); i++) {
-            System.out.printf(" %2d) %.2f EU\n", (i + 1), prices.get(i));
-        }
-
-        printSeparator();
-        printData("Number of items:", prices.size(), "");
-        printData("Subtotal of all items:", sum, "EU");
-        printData("Least expensive item:", min,"EU");
-        printData("Most expensive item:", max,"EU");
-        printData("Average item price:", avg,"EU");
-        printData("DiscountLevel", discountLevel,"%");
-        printData("Discount", discount,"EU");
-        printData("Special discount (>=6 items):", extraDiscount,"EU");
-        printSeparator();
-        printData("FINAL AMOUNT:", finalTotal,"EU");
-        printSeparator();
-    }
+    //---------------------Calculation-----------------
 
     private static double sumCalc(ArrayList<Double> prices) {
         double sum = 0;
@@ -142,6 +120,46 @@ public class Main {
         return finalTotal;
     }
 
+
+    //---------------------Structured data output-----------------
+    private static void printCheck(ArrayList<Double> prices) {
+
+        if (prices.size() == 0) {
+            System.out.println("There are no items in the list. Bye!");
+            return;
+        }
+
+        double sum = sumCalc(prices);
+        double min = minCalc(prices);
+        double max = maxCalc(prices);
+        double avg = avgCalc(prices);
+
+        double discountLevel = discountPercentageCal(prices);
+        double discount = discountCalc(prices);
+        double extraDiscount = discountExtraCalc(prices);
+        double finalTotal = totalCalc(prices);
+
+        System.out.println("\n------------------RECEIPT------------------");
+
+        System.out.println("Items:");
+        for (int i = 0; i < prices.size(); i++) {
+            System.out.printf(" %2d) %.2f EU\n", (i + 1), prices.get(i));
+        }
+
+        printSeparator();
+        printData("Number of items:", prices.size(), "");
+        printData("Subtotal of all items:", sum, "EU");
+        printData("Least expensive item:", min,"EU");
+        printData("Most expensive item:", max,"EU");
+        printData("Average item price:", avg,"EU");
+        printData("DiscountLevel", discountLevel,"%");
+        printData("Discount", discount,"EU");
+        printData("Special discount (>=6 items):", extraDiscount,"EU");
+        printSeparator();
+        printData("FINAL AMOUNT:", finalTotal,"EU");
+        printSeparator();
+    }
+
     private static void printData(String message, double value, String separator) {
         System.out.printf("| %-29s | %7.2f %2s|\n", message, value, separator);
     }
@@ -154,17 +172,4 @@ public class Main {
         System.out.println("-".repeat(45));
     }
 
-    public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("\n=== Welcome to Kwik-E-Mart ===");
-        System.out.println("Enter prices one by one.");
-        System.out.println("Enter 0 to finish.");
-        printSeparator();
-
-        ArrayList<Double> prices = inputPrices(scanner);
-        printCheck(prices);
-
-        scanner.close();
-    }
 }
