@@ -7,25 +7,29 @@ public class Main {
 
     private static ArrayList<Double> inputPrices (Scanner scanner) {
         ArrayList<Double> prices = new ArrayList<>();
+        double price= 0;
         while (true) {
+
             System.out.print("Enter price (0 to finish): ");
+            String userInput = scanner.nextLine();
+            try {
+                userInput = userInput.replace(",", ".").trim();
+                price = Double.parseDouble(userInput);;
+                if (price == 0) {
+                    break;
+                }
+                if (price < 0) {
+                    System.out.println("Error: Price should be > 0.");
+                    continue;
 
-            if (!scanner.hasNextDouble()) {
-                System.out.println("Please enter a valid price (for example 2,50)");
-                scanner.next();
-                continue;
-            }
+                }
+                prices.add(price);
 
-            double price = scanner.nextDouble();
-            if (price == 0) {
-                break;
-            }
+            }catch (NumberFormatException e) {
+                System.out.println("Please enter a valid price (for example 2,50)!");
 
-            if (price < 0) {
-                System.out.println("Error: Price should be > 0.");
-                continue;
+                //continue;
             }
-            prices.add(price);
         }
         return prices;
     }
